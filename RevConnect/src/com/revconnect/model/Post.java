@@ -1,3 +1,4 @@
+
 package com.revconnect.model;
 
 import java.sql.Timestamp;

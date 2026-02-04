@@ -9,6 +9,7 @@ import com.revconnect.service.LikeService;
 import com.revconnect.service.CommentService;
 import com.revconnect.service.ConnectionService;
 import com.revconnect.service.NotificationService;
+import com.revconnect.service.UserService;
 
 public class RevConnectApp {
 
@@ -20,6 +21,7 @@ public class RevConnectApp {
     static CommentService commentService = new CommentService();
     static ConnectionService connectionService = new ConnectionService();
     static NotificationService notificationService = new NotificationService();
+    static UserService userService = new UserService();
 
     static User currentUser = null;
 
@@ -31,6 +33,12 @@ public class RevConnectApp {
             System.out.println("2. Login");
             System.out.println("3. Exit");
             System.out.print("Enter choice: ");
+
+            if (!sc.hasNextInt()) {
+                System.out.println("❌ Please enter a valid option");
+                sc.next();
+                continue;
+            }
 
             int choice = sc.nextInt();
 
@@ -62,7 +70,12 @@ public class RevConnectApp {
         System.out.print("User Type (PERSONAL / CREATOR / BUSINESS): ");
         String userType = sc.nextLine();
 
-        User user = new User(email, username, password, userType);
+        // ✅ FIXED: use setters (NO constructor)
+        User user = new User();
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setUserType(userType);
 
         if (authService.register(user)) {
             System.out.println("✅ Registration successful!");
@@ -102,7 +115,16 @@ public class RevConnectApp {
             System.out.println("5. Send Connection Request");
             System.out.println("6. View Notifications");
             System.out.println("7. Logout");
+            System.out.println("8. Edit Profile");
+            System.out.println("9. View My Profile");
+            System.out.println("10. Search Users");
             System.out.print("Enter choice: ");
+
+            if (!sc.hasNextInt()) {
+                System.out.println("❌ Please enter a valid number");
+                sc.next();
+                continue;
+            }
 
             int choice = sc.nextInt();
 
@@ -118,6 +140,9 @@ public class RevConnectApp {
                     System.out.println("👋 Logged out");
                     return;
                 }
+                case 8 -> editProfile();
+                case 9 -> viewProfile();
+                case 10 -> searchUsers();
                 default -> System.out.println("❌ Invalid option");
             }
         }
@@ -204,5 +229,20 @@ public class RevConnectApp {
             .forEach(n ->
                 System.out.println("- " + n.getMessage() + " | Read: " + n.isRead())
             );
+    }
+
+    // ================= PROFILE =================
+    static void editProfile() {
+        sc.nextLine();
+        userService.editProfile(currentUser, sc);
+    }
+
+    static void viewProfile() {
+        userService.viewProfile(currentUser.getUserId());
+    }
+
+    static void searchUsers() {
+        sc.nextLine();
+        userService.searchUsers(sc);
     }
 }

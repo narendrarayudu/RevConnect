@@ -6,67 +6,44 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String userType;
+    private String userType;   // ✅ FIXED
 
-    // 1️⃣ Empty constructor (Java needs this)
+    // Profile fields
+    private String fullName;
+    private String bio;
+    private String profilePicPath;
+    private String location;
+    private String website;
+
     public User() {}
 
-    // 2️⃣ Constructor used during registration
-    public User(String email, String username, String password, String userType) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-    }
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    // 3️⃣ Constructor used during login (DB → Java)
-    public User(int userId, String email, String username, String password, String userType) {
-        this.userId = userId;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    // ===== Getters & Setters =====
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public int getUserId() {
-        return userId;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    public String getUserType() { return userType; }
+    public void setUserType(String userType) { this.userType = userType; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getBio() { return bio; }
+    public void setBio(String bio) { this.bio = bio; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getProfilePicPath() { return profilePicPath; }
+    public void setProfilePicPath(String profilePicPath) { this.profilePicPath = profilePicPath; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
+    public String getWebsite() { return website; }
+    public void setWebsite(String website) { this.website = website; }
 }
