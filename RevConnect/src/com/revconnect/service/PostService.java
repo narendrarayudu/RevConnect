@@ -18,6 +18,13 @@ public class PostService {
     public List<Post> getFeed() {
         return postDAO.getAllPosts();
     }
+    public boolean editPost(int userId, int postId, String content) {
+        return postDAO.editPost(userId, postId, content);
+    }
+
+    public boolean deletePost(int userId, int postId) {
+        return postDAO.deletePost(userId, postId);
+    }
 
     public int getPostOwner(int postId) {
         return postDAO.getPostOwner(postId);

@@ -73,4 +73,34 @@ public class PostDAO {
         }
         return posts;
     }
+    public boolean editPost(int userId, int postId, String newContent) {
+        String sql = "UPDATE posts SET content = ? WHERE post_id = ? AND user_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, newContent);
+            ps.setInt(2, postId);
+            ps.setInt(3, userId);
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean deletePost(int userId, int postId) {
+        String sql = "DELETE FROM posts WHERE post_id = ? AND user_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, postId);
+            ps.setInt(2, userId);
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
